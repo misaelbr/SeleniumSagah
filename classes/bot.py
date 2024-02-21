@@ -23,7 +23,7 @@ class Bot:
         """
         self.username = username
         self.password = password
-        self.time_wait = 2
+        self.time_wait = 1
         self.target=''
         self.driver = self.configure_bot()
         log.basicConfig(level=log.INFO, filename="logs/sagah_bot.log", format="%(levelname)s - %(asctime)s -  %(message)s", encoding="utf-8",  datefmt="%d-%m-%Y %H:%M:%S")
@@ -130,15 +130,20 @@ class Bot:
     def associar_professores(self, dados:dict):        
         disciplina_professor = dados['disciplina_professor']
         professor_email = dados['professor_email']
+        
+        total = len(disciplina_professor)
+        i = 0
                 
         try:
                         
             for disciplina, professor in disciplina_professor.items():
+                start_time = time.time()
+                i += 1
                 driver = self.open_target('https://catalogo.grupoa.education/coordinator')
                 input_professor = driver.find_element_by_xpath('//*[@id="input-41"]')
                 
-                print(f'Associando disciplina: {disciplina} - {professor}')
-                log.info(f'Associando disciplina: {disciplina} - {professor}')
+                print(f'Associando disciplina: {disciplina} - {professor} ({i}/{total})')
+                log.info(f'Associando disciplina: {disciplina} - {professor} ({i}/{total})')
                 
                 input_professor.send_keys(professor)
                 input_professor.send_keys(Keys.ENTER)
@@ -171,7 +176,7 @@ class Bot:
                 add_disciplina = driver.find_element_by_xpath(
                     '/html/body/div/div/div[1]/div[2]/div/div/div[2]/div/div/div/div[5]/div[1]/div[2]/button[1]')
                 add_disciplina.click()
-                time.sleep(1.5)
+                time.sleep(1)
                 input_disciplina = driver.find_element_by_xpath('/html/body/div/div[3]/div/div/div[2]/div/div[1]/div[1]/div/div[1]/div[2]/input')
                 
                     
@@ -201,6 +206,13 @@ class Bot:
                 salvar = driver.find_element_by_xpath('/html/body/div/div[2]/div[1]/div[2]/div/div/div[2]/div/div/div/div[5]/div[1]/div[2]/button[2]')
                 salvar.click()
                 time.sleep(1)
+                end_time = time.time()
+                execution_time = end_time - start_time
+                execution_time_formatted = "{:.2f}".format(execution_time)
+
+                print(f'Tempo de execução: {execution_time_formatted} segundos')
+                log.info(f'Tempo de execução: {execution_time_formatted} segundos')
+
                 
                 
             driver.quit()
