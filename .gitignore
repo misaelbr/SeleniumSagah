@@ -1,0 +1,5 @@
+conf.ini
+.idea
+classes/__pycache__/
+data/*.xlsx
+*.log
