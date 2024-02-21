@@ -4,7 +4,7 @@
 This is a bot that will help automate the process of filling forms for Sagah Catalog.
 
 ## Installation 
-1. Clone the 
+1. Clone this repository
 
 2. Install the requirements
 ```bash
