@@ -30,5 +30,9 @@ $ python main.py operation
 $ python main.py cursos
 ```
 
+## Requeriments
+This bot uses the chrome webdriver, so you need to have it installed in your system. You can download it from [here](https://chromedriver.chromium.org/downloads) and add it to your PATH.
+
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
