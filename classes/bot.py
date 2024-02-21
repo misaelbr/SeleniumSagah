@@ -135,6 +135,7 @@ class Bot:
         i = 0
                 
         try:
+            global_start_time = time.time()
                         
             for disciplina, professor in disciplina_professor.items():
                 start_time = time.time()
@@ -183,7 +184,7 @@ class Bot:
                 input_disciplina.send_keys(disciplina)
                 input_disciplina.send_keys(Keys.ENTER)
                 time.sleep(1.5)
-      
+                
                 associar_disciplina = driver.find_element_by_xpath('/html/body/div/div[3]/div/div/div[2]/div/div[2]/div/div/button')
                 
                 associar_disciplina.click()
@@ -209,9 +210,15 @@ class Bot:
                 end_time = time.time()
                 execution_time = end_time - start_time
                 execution_time_formatted = "{:.2f}".format(execution_time)
+                
+                elapsed_time = time.time() - global_start_time
+                average_time_per_iteration = elapsed_time / i
+                remaining_time = average_time_per_iteration * (total - i)
 
                 print(f'Tempo de execução: {execution_time_formatted} segundos')
                 log.info(f'Tempo de execução: {execution_time_formatted} segundos')
+                print(f"Iteração {i}/{total} - Tempo estimado até a conclusão: {remaining_time:.2f} segundos - {remaining_time/60:.2f} minutos")
+                log.info(f"Iteração {i+1}/{total} - Tempo estimado até a conclusão: {remaining_time:.2f} segundos - {remaining_time/60:.2f} minutos")
 
                 
                 
