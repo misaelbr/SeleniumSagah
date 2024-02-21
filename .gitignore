@@ -3,3 +3,4 @@ conf.ini
 classes/__pycache__/
 data/*.xlsx
 *.log
+*.csv
